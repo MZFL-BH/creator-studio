@@ -41,7 +41,7 @@ flowchart LR
 
 | 脚本文件 | 核心职责 | 耗时与机制 |
 | :--- | :--- | :--- |
-| [`scripts/scout_topics.py`](./scripts/scout_topics.py) | **选题雷达与85分团队打分引擎**：自动扫描 GitHub AI Trending、Hacker News、Hugging Face 情报，运行 5 维打分模型，>= 85 分准入立项并可选直通出片 | ~3 秒 |
+| [`scripts/scout_topics.py`](./scripts/scout_topics.py) | **选题雷达与 85 分 Rubric 评审引擎**：基于 `cheat-on-content` 体系升级 7 维度打分（ER/HP/QL/NA/AB/SR/SAT），扫描 GitHub/HN/HF 实时情报，对齐 `candidate-schema` 协议维护 `candidates.md` 候选池，支持 `--recommend` 智能推荐与 `>=85分` S 级立项 | ~3 秒 |
 | [`scripts/generate_script.py`](./scripts/generate_script.py) | **10分钟爆款脚本生成引擎**：支持三大赛道（硬核测评 / 省时间 / 加速老赛道），自动生成黄金3秒狠话、短句重音标点、画中画运镜指令及小红书/B站/抖音多平台发布文案 | ~5 秒 |
 | [`scripts/render_cards.py`](./scripts/render_cards.py) | **高清动效卡片渲染引擎**：基于 Playwright 批量渲染 1080x1920 竖版红绿勾叉表、数字胶囊卡与代码高亮框 | ~30 秒 |
 | [`scripts/cut_silence.py`](./scripts/cut_silence.py) | **智能切除口播气口**：利用苹果 VideoToolbox 硬件加速，自动切除 0.6s 以上停顿气口，大幅提升前 5 秒留存 | ~10 秒 |
@@ -63,7 +63,19 @@ pip install -r requirements.txt
 playwright install chromium
 ```
 
-### 2. 标准出片三步法
+### 2. 标准出片工作流
+
+#### 第零步：选题雷达扫描与 85 分 Rubric 评审
+```bash
+# 模式 A：扫描 GitHub Trending / Hacker News / Hugging Face 情报
+python3 scripts/scout_topics.py --scan
+
+# 模式 B：手动输入任意选题或竞品进行 7 维度打分 (>= 85 分自动入库 candidates.md)
+python3 scripts/scout_topics.py "WPS灵犀对比DeepSeek写周报真机实测：模板与避坑SOP" --save
+
+# 模式 C：从已沉淀的 candidates.md 中智能推荐 Top 选题
+python3 scripts/scout_topics.py --recommend --limit 5
+```
 
 #### 第一步：周中初始化选题工程与脚本
 ```bash

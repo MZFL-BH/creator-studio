@@ -40,11 +40,13 @@ description: >-
 
 用户选定对应动作后，Agent 立即定位目标工程目录（未指定时默认最新的工程或当前目录），并直接运行对应的底座脚本：
 
-### 0. 🎯 选题雷达与85分团队打分
-运行 `scout_topics.py [选题名称] [--scan] [--init] [--sync-feishu]`：
-- 自动抓取 GitHub Trending、Hacker News AI 极客热议榜与 Hugging Face 最新突破；
-- 运行反常识冲突、实测可行性、赞藏比潜力、搜索爆发力与开源转化五维打分算法；
-- 仅当评分 `>= 85 分` 时予以准入，并输出黄金 3 秒 Hook 与实测落地切入点。
+### 0. 🎯 选题雷达与 85 分 Rubric 评审 (cheat-on-content 规范)
+运行 `scout_topics.py [选题名称] [--scan] [--recommend] [--save] [--init] [--sync-feishu]`：
+- 抓取 GitHub Trending、Hacker News AI 争议榜与 Hugging Face 每日论文突破；
+- 运行 **cheat-on-content 7 维度 Rubric 模型** (ER 顿悟感×1.5、HP 痛点狠话×1.5、QL 抄作业度×1.5、NA 递进弧线×1.0、AB 受众面×1.0、SR 风口共振×1.0、SAT 撕滤镜×1.0)；
+- 换算为百分制综合分，严守 **`>= 85 分` (composite >= 8.5)** 的 S 级准入门槛；
+- 自动生成 12 位稳定 hash id，持久化维护符合 `candidate-schema` 协议的 `candidates.md` 候选池；
+- 支持 `--recommend` 排序推荐高质量储备，支持 `--init` 一键联动 `generate_script.py` 初始化出片工程。
 
 ### 1. 🎬 一键流水线总装
 运行 `pipeline.py <工程目录>`：

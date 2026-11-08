@@ -20,7 +20,8 @@ description: >-
     {
       "question": "请从下方选择你要执行的 Creator Studio 作战动作：",
       "options": [
-        "(Recommended) 🎬 一键流水线总装 (pipeline.py: 压制-14 LUFS + 封面截帧 + 飞书入库)",
+        "(Recommended) 🎯 选题雷达与85分团队打分 (scout_topics.py: 扫描GitHub/HN/HF情报并裁决)",
+        "🎬 一键流水线总装 (pipeline.py: 压制-14 LUFS + 封面截帧 + 飞书入库)",
         "📝 10分钟爆款脚本生成 (generate_script.py: 传入选题生成短句重音脚本与三平台文案)",
         "🎨 预渲染高清对比卡片 (render_cards.py: 批量输出 1080x1920 动效图)",
         "✂️ 智能切除口播气口 (silence.py: 苹果硬件加速秒切停顿倒吸气)",
@@ -38,6 +39,12 @@ description: >-
 ## 阶段二：选择后立即执行对应作业
 
 用户选定对应动作后，Agent 立即定位目标工程目录（未指定时默认最新的工程或当前目录），并直接运行对应的底座脚本：
+
+### 0. 🎯 选题雷达与85分团队打分
+运行 `scout_topics.py [选题名称] [--scan] [--init] [--sync-feishu]`：
+- 自动抓取 GitHub Trending、Hacker News AI 极客热议榜与 Hugging Face 最新突破；
+- 运行反常识冲突、实测可行性、赞藏比潜力、搜索爆发力与开源转化五维打分算法；
+- 仅当评分 `>= 85 分` 时予以准入，并输出黄金 3 秒 Hook 与实测落地切入点。
 
 ### 1. 🎬 一键流水线总装
 运行 `pipeline.py <工程目录>`：

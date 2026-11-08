@@ -345,6 +345,12 @@ def main():
             print(f"- {item['level']} | {item['dim']} (当前 {item['val']}) ➡️ {item['action']}")
     else:
         print("🌟 数据全线达标，节奏与转化极为健康！")
+    # 同步至飞书多维表格
+    feishu_script = Path(__file__).parent / "feishu_sync.py"
+    if args.sync_feishu and feishu_script.exists():
+        print("[*] 正在同步复盘数据至飞书多维表格「AI自媒体总表」...")
+        import subprocess
+        subprocess.run([sys.executable, str(feishu_script), str(proj_dir)])
     print()
 
 if __name__ == "__main__":

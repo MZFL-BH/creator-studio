@@ -101,8 +101,19 @@ def parse_project_dir(dir_path: Path) -> dict:
     has_final_video = any(re.search(r"(final|v\d+).*\.mp4", v, re.IGNORECASE) for v in video_names)
     has_silent_draft = any("silent" in v.lower() for v in video_names) or (dir_path / "NEXT-FOR-ETHAN.md").exists()
     has_published_flag = (dir_path / "08-发布检查清单.md").exists() or (dir_path / "published.flag").exists()
+    has_review = (dir_path / "review.md").exists()
 
-    if has_published_flag:
+    views_count = 0
+    if has_review:
+        status = "已复盘"
+        try:
+            rev_text = (dir_path / "review.md").read_text(encoding="utf-8")
+            vm = re.search(r'\*\*总播放量\*\*\s*\|\s*([\d,]+)', rev_text)
+            if vm:
+                views_count = int(vm.group(1).replace(",", ""))
+        except Exception:
+            pass
+    elif has_published_flag:
         status = "已分发"
     elif has_final_video:
         status = "成片已渲染"
@@ -141,7 +152,7 @@ def parse_project_dir(dir_path: Path) -> dict:
         "path": str(dir_path),
         "assets": assets_str,
         "platforms": platforms,
-        "views": 0
+        "views": views_count
     }
 
 

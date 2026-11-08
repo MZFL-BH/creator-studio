@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethan · 个人自媒体闭环运营作战大屏 (飞书云端中枢版)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .card-clean {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-clean:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+    }
+    input[type=range] {
+      accent-color: #4f46e5;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24 selection:bg-indigo-100 selection:text-indigo-900">
+
+  <!-- 顶部轻盈导航栏 -->
+  <header class="border-b border-slate-200/80 bg-white/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+          E
+        </div>
+        <div>
+          <h1 class="text-sm font-bold tracking-tight text-slate-900 flex items-center space-x-2">
+            <span>ETHAN STUDIO</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-mono font-medium border border-indigo-200/60">飞书云端中枢集成版</span>
+          </h1>
+          <p class="text-[11px] text-slate-400">自媒体 SOP 全链路 · 飞书多维表格 🔁 本地流水线</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3 text-xs">
+        <!-- 飞书直达按钮 -->
+        <a href="https://my.feishu.cn/base/KWl2bUe9fa5CKvsctVjcSb59nVb?table=tblKLLxJdPltUSA5&view=vewgDwbRSG" target="_blank" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-medium shadow-sm transition-colors">
+          <span>🔗 直达飞书多维表格</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+        <div class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono font-medium">
+          <span>GitHub: 1,000+ Stars 目标</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 pt-8 space-y-8">
+
+    <!-- 顶栏：博主定位与时间配比 -->
+    <div class="card-clean rounded-2xl p-7 bg-white relative overflow-hidden">
+      <div class="absolute right-0 top-0 w-96 h-full bg-gradient-to-l from-indigo-50/50 via-slate-50/20 to-transparent pointer-events-none"></div>
+      
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8 space-y-3">
+          <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[11px] font-semibold text-indigo-700">
+            <span>🎯 极客定位</span>
+            <span class="text-indigo-300">|</span>
+            <span>硬核技术实测 · 专撕 AI 营销滤镜</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+            飞书为云端总脑，本地脚本为执行中枢，拒绝繁琐自建
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed max-w-2xl">
+            不用自己写数据库和爬虫服务！所有的选题、状态流转、素材路径和播放数据直接沉淀在<strong>飞书多维表格</strong>中（永久云端留存、自带可视化仪表盘）。
+            本地只需敲一行命令自动咬合，周中 3 晚各 1 小时打磨，周末 3.5 小时流水线出片。
+          </p>
+        </div>
+
+        <div class="lg:col-span-4 grid grid-cols-3 gap-3">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-center">
+            <div class="text-xs text-slate-500 font-medium">破圈抓流量</div>
+            <div class="text-xl font-extrabold text-indigo-600 mono mt-1">20-30%</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">突发重大快讯</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-center">
+            <div class="text-xs text-slate-500 font-medium">筑信任城墙</div>
+            <div class="text-xl font-extrabold text-purple-600 mono mt-1">60-70%</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">大厂场景实测</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-center">
+            <div class="text-xs text-slate-500 font-medium">极客影响力</div>
+            <div class="text-xl font-extrabold text-emerald-600 mono mt-1">开源</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">冲 1000+ Star</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01: 核心聚焦：端到端全链路自动化流转 SOP (飞书 🔁 本地脚本) -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+            <span class="w-2 h-4 rounded bg-indigo-600"></span>
+            <span>01 · 端到端 SOP 全景闭环流转 (你真正运转的自动化体系)</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">打开这个大屏就能看清整个闭环：飞书管数据与状态，本地脚本管计算与压制，环环相扣</p>
+        </div>
+      </div>
+
+      <!-- 5 步流转卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3.5">
+        <!-- 步骤 1 -->
+        <div class="card-clean rounded-xl p-4 space-y-2 border-t-2 border-t-indigo-600">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-600 mono">STEP 01 · 周二</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 font-semibold border border-indigo-200">飞书云端</span>
+          </div>
+          <div class="font-bold text-xs text-slate-900">飞书多维表格定选题</div>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            在「选题与出片总表」新增一行，贴入参考链接，状态标记为 <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 mono font-semibold">待确认</span>。
+          </p>
+          <div class="text-[10px] text-indigo-600 font-medium pt-1">
+            📍 沉淀灵感，绝不遗忘
+          </div>
+        </div>
+
+        <!-- 步骤 2 -->
+        <div class="card-clean rounded-xl p-4 space-y-2 border-t-2 border-t-purple-600">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-600 mono">STEP 02 · 周四</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 font-semibold border border-purple-200">文案打磨</span>
+          </div>
+          <div class="font-bold text-xs text-slate-900">生成分镜施工图与卡片</div>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            敲定 <code class="mono text-purple-700">script.md</code>（打好 F01/C01/C03 工件编号），跑 <code class="mono text-purple-700">render_cards.py</code> 预渲染高清红绿对比卡。
+          </p>
+          <div class="text-[10px] text-purple-600 font-medium pt-1">
+            📍 状态更新为: <span class="font-semibold">脚本已出</span>
+          </div>
+        </div>
+
+        <!-- 步骤 3 -->
+        <div class="card-clean rounded-xl p-4 space-y-2 border-t-2 border-t-pink-600">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-pink-600 mono">STEP 03 · 周末</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-pink-50 text-pink-700 font-semibold border border-pink-200">集中生产</span>
+          </div>
+          <div class="font-bold text-xs text-slate-900">录制出镜 + 跑 pipeline.py</div>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            录屏录口播，执行流水线：<br>
+            • <code class="mono text-pink-700">ffmpeg-skill</code>: 去气口 + -14 LUFS 响度；<br>
+            • <code class="mono text-pink-700">oil-cover</code>: 抽 8 张候选帧规划封面；<br>
+            • <code class="mono text-pink-700">feishu_sync</code>: 自动回填产物。
+          </p>
+          <div class="text-[10px] text-pink-600 font-medium pt-1">
+            📍 状态更新为: <span class="font-semibold">成片已渲染</span>
+          </div>
+        </div>
+
+        <!-- 步骤 4 -->
+        <div class="card-clean rounded-xl p-4 space-y-2 border-t-2 border-t-amber-600">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-600 mono">STEP 04 · 周日</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 font-semibold border border-amber-200">全网分发</span>
+          </div>
+          <div class="font-bold text-xs text-slate-900">多平台发布 + 评论区承接</div>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            视频发布至小红书、B站、视频号与 YouTube Shorts；首条评论置顶评测原表与开源项目链接，引流技术粉点 Star。
+          </p>
+          <div class="text-[10px] text-amber-600 font-medium pt-1">
+            📍 状态更新为: <span class="font-semibold">已分发</span>
+          </div>
+        </div>
+
+        <!-- 步骤 5 -->
+        <div class="card-clean rounded-xl p-4 space-y-2 border-t-2 border-t-emerald-600">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-600 mono">STEP 05 · 周一</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">反哺飞轮</span>
+          </div>
+          <div class="font-bold text-xs text-slate-900">跑 review.py 体检并回填</div>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            执行 <code class="mono text-emerald-700">python3 review.py [工程名]</code>，输入实测 2s 跳出、5s 完播等，自动给出 P0/P1 处方，回填飞书并反哺下周！
+          </p>
+          <div class="text-[10px] text-emerald-600 font-medium pt-1">
+            📍 形成永久复利资产
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02: 飞书多维表格结构与常用脚本命令速查 -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- 飞书字段映射卡 -->
+      <div class="lg:col-span-7 card-clean rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+            <h4 class="text-sm font-bold text-slate-900">飞书多维表格「AI自媒体自动化·选题与出片总表」字段映射</h4>
+          </div>
+          <a href="https://my.feishu.cn/base/KWl2bUe9fa5CKvsctVjcSb59nVb?table=tblKLLxJdPltUSA5&view=vewgDwbRSG" target="_blank" class="text-xs text-indigo-600 hover:underline font-medium">在浏览器打开 ↗</a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs">
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
+            <div class="font-bold text-slate-800">1. 选题标题 (fldMBxOfhS)</div>
+            <div class="text-slate-500 text-[11px]">每期视频抓手大标题（如“4家AI做PPT残酷测评”）</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
+            <div class="font-bold text-slate-800">2. 流程状态 (fldDnDxtyr)</div>
+            <div class="text-slate-500 text-[11px]">待确认 / 脚本已出 / 待录制出镜 / 成片已渲染 / 已分发</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
+            <div class="font-bold text-slate-800">3. 对标参考链接 (fldorZE7Oc)</div>
+            <div class="text-slate-500 text-[11px]">存放爆款对标视频或原始论文/发布会链接</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
+            <div class="font-bold text-slate-800">4. 核心爆点/痛点 (fldw722Mbu)</div>
+            <div class="text-slate-500 text-[11px]">前 3 秒黄金钩子、痛点反差与批判视角</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
+            <div class="font-bold text-slate-800">5. 本地素材路径 (fld3sPw8TB)</div>
+            <div class="text-slate-500 text-[11px]">本地工程绝对路径 (~/Desktop/素材/xxxx)</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
+            <div class="font-bold text-slate-800">6. 全网播放数据 (fldWqEuIEh)</div>
+            <div class="text-slate-500 text-[11px]">播放量、跳出率、完播率、转粉率与 GitHub Star 沉淀</div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-lg bg-indigo-50/60 border border-indigo-100 text-[11px] text-indigo-900 leading-relaxed">
+          💡 <strong>为什么无需自己搭数据库？</strong> 飞书多维表格支持“仪表盘”功能，在飞书里点两下就能生成转化漏斗图与播放折线图；同时飞书支持<strong>「AI 字段」</strong>，填入播放数据后 AI 自动依据我们的标准给出体检结论！
+        </div>
+      </div>
+
+      <!-- 常用自动化命令备忘录 -->
+      <div class="lg:col-span-5 card-clean rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+            <h4 class="text-sm font-bold text-slate-900">本地常用流水线命令速查</h4>
+          </div>
+          <span class="text-[11px] text-slate-400 font-mono">Terminal Commands</span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <div class="text-slate-700 font-medium mb-1">1. 10分钟爆款脚本生成与抗压蒸馏 (新选题初始化)</div>
+            <div class="bg-slate-900 text-slate-100 rounded-lg p-2.5 font-mono text-[11px] select-all">
+              cd ~/Desktop/素材<br>
+              python3 generate_script.py "选题名称" -o 202611xx-project-name
+            </div>
+          </div>
+
+          <div>
+            <div class="text-slate-700 font-medium mb-1">2. 全链路流水线一键压制 (响度+选帧+飞书入库)</div>
+            <div class="bg-slate-900 text-slate-100 rounded-lg p-2.5 font-mono text-[11px] select-all">
+              cd ~/Desktop/素材<br>
+              python3 pipeline.py 20261030-template-ppt
+            </div>
+          </div>
+
+          <div>
+            <div class="text-slate-700 font-medium mb-1">3. 预渲染 1080x1920 高清红绿对比卡片</div>
+            <div class="bg-slate-900 text-slate-100 rounded-lg p-2.5 font-mono text-[11px] select-all">
+              python3 ~/.gemini/config/skills/creator-studio/scripts/render_cards.py 20261030-template-ppt
+            </div>
+          </div>
+
+          <div>
+            <div class="text-slate-700 font-medium mb-1">4. 发后 48 小时数据复盘与 P0/P1 体检 (小眼睛赞播比)</div>
+            <div class="bg-slate-900 text-slate-100 rounded-lg p-2.5 font-mono text-[11px] select-all">
+              python3 ~/Desktop/素材/review.py 20261030-template-ppt
+            </div>
+          </div>
+
+          <div>
+            <div class="text-slate-700 font-medium mb-1">5. 单独同步工程状态至飞书多维表格</div>
+            <div class="bg-slate-900 text-slate-100 rounded-lg p-2.5 font-mono text-[11px] select-all">
+              python3 ~/.gemini/config/skills/creator-studio/scripts/feishu_sync.py 20261030-template-ppt
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03: 当前正在推进的工程看板 -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+            <span class="w-2 h-4 rounded bg-purple-600"></span>
+            <span>02 · 本地重点工程推进状态</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">扫描自本地素材库 (~/Desktop/素材)，与飞书记录实时同步</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 卡片 1: PPT 测评 (就绪待录制/压制) -->
+        <div class="card-clean rounded-xl p-5 space-y-4 border-t-4 border-t-indigo-600 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60">
+                70% 硬核实测 · 样本 01
+              </span>
+              <span class="text-xs font-mono font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/50">
+                施工图已就绪
+              </span>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-base">4 家主流 AI 做 PPT 残酷实测</h4>
+              <p class="text-xs text-slate-500 mt-1">工程目录: <code class="mono text-slate-700">20261030-template-ppt</code></p>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-600">
+              <div class="flex items-center justify-between">
+                <span>分镜脚本 (script.md):</span>
+                <span class="font-medium text-emerald-600">✅ 31 张卡片已排定</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>高清对比卡 (render_cards):</span>
+                <span class="font-medium text-emerald-600">✅ 1080x1920 已生成</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>静音母版 (draft-silent.mp4):</span>
+                <span class="font-medium text-emerald-600">✅ 已完成拼接</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>下一动作:</span>
+                <span class="font-medium text-indigo-600">录制出镜口播 ➡️ 响度对齐</span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-400">本周末 3.5h 主攻</span>
+            <span class="text-indigo-600 font-semibold hover:underline cursor-pointer">进入工程文件夹 →</span>
+          </div>
+        </div>
+
+        <!-- 卡片 2: GrokBot 实测 -->
+        <div class="card-clean rounded-xl p-5 space-y-4 border-t-4 border-t-purple-600 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-purple-50 text-purple-700 border border-purple-200/60">
+                20% 突发首发 · 样本 02
+              </span>
+              <span class="text-xs font-mono font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded border border-purple-200/50">
+                已跑通全流水线
+              </span>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-base">Grok Bot 零基础动手上手</h4>
+              <p class="text-xs text-slate-500 mt-1">工程目录: <code class="mono text-slate-700">20261027-GrokBot上手</code></p>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-600">
+              <div class="flex items-center justify-between">
+                <span>音频响度 (-14 LUFS):</span>
+                <span class="font-medium text-emerald-600">✅ draft-v7_loudnorm.mp4</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>智能选帧 (oil-cover):</span>
+                <span class="font-medium text-emerald-600">✅ 8 张高清候选帧</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>飞书多维表格同步:</span>
+                <span class="font-medium text-emerald-600">✅ 已入库飞书总表</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>分发状态:</span>
+                <span class="font-medium text-slate-700">全网后台草稿箱就绪</span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-400">已形成自动化标杆</span>
+            <span class="text-purple-600 font-semibold hover:underline cursor-pointer">复盘报告已归档 →</span>
+          </div>
+        </div>
+
+        <!-- 卡片 3: 一人自媒体流水线开源 (冲 Star 杀手锏) -->
+        <div class="card-clean rounded-xl p-5 space-y-4 border-t-4 border-t-emerald-600 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                隐形武器 · 样本 03
+              </span>
+              <span class="text-xs font-mono font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">
+                代码库打磨中
+              </span>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-base">一人自媒体出片工具链开源</h4>
+              <p class="text-xs text-slate-500 mt-1">目标: <code class="mono text-slate-700">GitHub 1,000+ Stars 斩获</code></p>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-600">
+              <div class="flex items-center justify-between">
+                <span>总控引擎 (pipeline.py):</span>
+                <span class="font-medium text-emerald-600">✅ 音频/封面/同步闭环</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>复盘诊断 (review.py):</span>
+                <span class="font-medium text-emerald-600">✅ P0/P1 体检引擎就绪</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>README 与演示 GIF:</span>
+                <span class="font-medium text-amber-600">⏳ 待录制 3 秒动图</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>出海双轨分发:</span>
+                <span class="font-medium text-indigo-600">待配英文版 Shorts/X</span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-400">下周重磅引爆点</span>
+            <span class="text-emerald-600 font-semibold hover:underline cursor-pointer">查看开源规划 →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04: 作品体检诊断计算器 (对照 review.py 引擎) -->
+    <section class="space-y-4">
+      <div>
+        <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+          <span class="w-2 h-4 rounded bg-emerald-600"></span>
+          <span>03 · 作品体检健康度模拟计算器 (对照 review.py 引擎)</span>
+        </h3>
+        <p class="text-xs text-slate-500 mt-0.5">在下方调整数值，实时根据老自媒体人四维生死线评级，给出 🔴 P0 / 🟠 P1 / 🟡 P2 处方</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- 左侧输入栏 -->
+        <div class="lg:col-span-5 card-clean rounded-xl p-6 space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">输入后台监测指标</span>
+            <button onclick="resetDefaults()" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">重置示例</button>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <div class="flex justify-between font-medium text-slate-700">
+                <span>视频播放量 (Views)</span>
+                <span id="lbl_views" class="mono font-bold text-indigo-600">2,400</span>
+              </div>
+              <input type="range" id="inp_views" min="200" max="30000" step="100" value="2400" class="w-full mt-1.5" oninput="calcMetrics()">
+            </div>
+
+            <div>
+              <div class="flex justify-between font-medium text-slate-700">
+                <span>前 2 秒跳出率 (及格 &lt;40% · 越低越好)</span>
+                <span id="lbl_bounce" class="mono font-bold text-rose-600">42%</span>
+              </div>
+              <input type="range" id="inp_bounce" min="10" max="70" step="1" value="42" class="w-full mt-1.5" oninput="calcMetrics()">
+            </div>
+
+            <div>
+              <div class="flex justify-between font-medium text-slate-700">
+                <span>5 秒完播率 (及格 &gt;25% · 优秀 &gt;40%)</span>
+                <span id="lbl_ret5" class="mono font-bold text-amber-600">22%</span>
+              </div>
+              <input type="range" id="inp_ret5" min="5" max="60" step="1" value="22" class="w-full mt-1.5" oninput="calcMetrics()">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <div>
+                <label class="block text-slate-600 font-medium mb-1">点赞数 (Likes)</label>
+                <input type="number" id="inp_likes" value="110" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 font-mono font-medium focus:bg-white focus:border-indigo-500 focus:outline-none" oninput="calcMetrics()">
+              </div>
+              <div>
+                <label class="block text-slate-600 font-medium mb-1">收藏数 (Saves)</label>
+                <input type="number" id="inp_saves" value="85" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 font-mono font-medium focus:bg-white focus:border-indigo-500 focus:outline-none" oninput="calcMetrics()">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-600 font-medium mb-1">净增关注 (Followers)</label>
+                <input type="number" id="inp_follows" value="18" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 font-mono font-medium focus:bg-white focus:border-indigo-500 focus:outline-none" oninput="calcMetrics()">
+              </div>
+              <div>
+                <label class="block text-slate-600 font-medium mb-1">GitHub Star 新增</label>
+                <input type="number" id="inp_stars" value="12" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 font-mono font-medium focus:bg-white focus:border-indigo-500 focus:outline-none" oninput="calcMetrics()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧诊断与行动 -->
+        <div class="lg:col-span-7 card-clean rounded-xl p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">实时体检结果与下一期反哺</span>
+            <span id="overall_badge" class="px-3 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+              存在 P1/P2 优化项
+            </span>
+          </div>
+
+          <!-- 3 个关键比率展示 -->
+          <div class="grid grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 text-center">
+              <div class="text-[11px] text-slate-500">收藏点赞比 (硬核度)</div>
+              <div id="res_savelike" class="text-xl font-bold mono text-emerald-600 mt-1">77.3%</div>
+              <div class="text-[10px] text-emerald-600 font-medium mt-0.5">🟢 优秀线(&gt;60%)</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 text-center">
+              <div class="text-[11px] text-slate-500">转粉转化率 (人设吸附)</div>
+              <div id="res_followrate" class="text-xl font-bold mono text-amber-600 mt-1">0.75%</div>
+              <div class="text-[10px] text-amber-600 font-medium mt-0.5">🟠 距及格线(&gt;1%)稍欠</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 text-center">
+              <div class="text-[11px] text-slate-500">开源 Star 转化</div>
+              <div id="res_star" class="text-xl font-bold mono text-indigo-600 mt-1">+12 Stars</div>
+              <div class="text-[10px] text-indigo-600 font-medium mt-0.5">🚀 闭环初显成效</div>
+            </div>
+          </div>
+
+          <!-- 诊断建议条目 -->
+          <div class="space-y-3 pt-2" id="diagnosis_items">
+            <!-- 动态填充 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function resetDefaults() {
+      document.getElementById('inp_views').value = 2400;
+      document.getElementById('inp_bounce').value = 42;
+      document.getElementById('inp_ret5').value = 22;
+      document.getElementById('inp_likes').value = 110;
+      document.getElementById('inp_saves').value = 85;
+      document.getElementById('inp_follows').value = 18;
+      document.getElementById('inp_stars').value = 12;
+      calcMetrics();
+    }
+
+    function calcMetrics() {
+      const views = parseInt(document.getElementById('inp_views').value) || 1;
+      const bounce = parseFloat(document.getElementById('inp_bounce').value) || 0;
+      const ret5 = parseFloat(document.getElementById('inp_ret5').value) || 0;
+      const likes = parseInt(document.getElementById('inp_likes').value) || 0;
+      const saves = parseInt(document.getElementById('inp_saves').value) || 0;
+      const follows = parseInt(document.getElementById('inp_follows').value) || 0;
+      const stars = parseInt(document.getElementById('inp_stars').value) || 0;
+
+      document.getElementById('lbl_views').innerText = views.toLocaleString();
+      document.getElementById('lbl_bounce').innerText = bounce + '%';
+      document.getElementById('lbl_ret5').innerText = ret5 + '%';
+
+      const saveLike = likes > 0 ? (saves / likes * 100).toFixed(1) : '0.0';
+      const followRate = (follows / views * 100).toFixed(2);
+
+      document.getElementById('res_savelike').innerText = saveLike + '%';
+      document.getElementById('res_followrate').innerText = followRate + '%';
+      document.getElementById('res_star').innerText = '+' + stars + ' Stars';
+
+      const itemsContainer = document.getElementById('diagnosis_items');
+      itemsContainer.innerHTML = '';
+
+      let hasP0 = false;
+      let hasP1 = false;
+
+      // 1. 2s 跳出率
+      if (bounce > 45) {
+        hasP0 = true;
+        itemsContainer.innerHTML += createDiagCard('🔴 P0 (阻塞级/片头跳出)', '前 2 秒划走率高达 ' + bounce + '%', '片头严禁用废话开篇，第 1 秒必须出现最具争议的翻车画面或大字卡。');
+      } else if (bounce > 38) {
+        hasP1 = true;
+        itemsContainer.innerHTML += createDiagCard('🟡 P2 (业务增长瓶颈)', '前 2 秒跳出率 ' + bounce + '% 处于临界线', '开门第一句话需要增加情绪对比动词，剪辑前移 0.6 秒气口。');
+      } else {
+        itemsContainer.innerHTML += createDiagCard('🟢 达标 (黄金前奏)', '前 2 秒跳出率仅 ' + bounce + '%', '片头黄金钩子极具吸引力，开门见山抓准了受众心理。', true);
+      }
+
+      // 2. 5s 完播率
+      if (ret5 < 20) {
+        hasP0 = true;
+        itemsContainer.innerHTML += createDiagCard('🔴 P0 (留存断崖)', '5 秒完播率仅 ' + ret5 + '%', '观众没有看到留下来看完全片的理由。第 3~5 秒必须承诺硬核交付物。');
+      } else if (ret5 < 26) {
+        hasP1 = true;
+        itemsContainer.innerHTML += createDiagCard('🟠 P1 (留存偏紧)', '5 秒完播率 ' + ret5 + '% 略低', '压缩中段铺垫，加快切入真实软件操作录屏的速度。');
+      } else {
+        itemsContainer.innerHTML += createDiagCard('🟢 达标 (节奏紧凑)', '5 秒完播率高达 ' + ret5 + '%', '顺利将受众引导入主干实测分镜，算法评级良好。', true);
+      }
+
+      // 3. 收藏点赞比
+      if (parseFloat(saveLike) < 25) {
+        hasP1 = true;
+        itemsContainer.innerHTML += createDiagCard('🟠 P1 (实用度欠佳)', '收藏点赞比仅 ' + saveLike + '%', '观众觉得好玩但不能拿来抄作业。多加可复用的提示词与结构化对比卡片。');
+      } else {
+        itemsContainer.innerHTML += createDiagCard('🟢 达标 (抄作业利器)', '收藏点赞比高达 ' + saveLike + '%', '具备极强的工具书属性与长尾搜索收益，是极佳的信任基石作品。', true);
+      }
+
+      // 徽标状态更新
+      const badge = document.getElementById('overall_badge');
+      if (hasP0) {
+        badge.className = 'px-3 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200';
+        badge.innerText = '🔴 存在 P0 阻塞问题';
+      } else if (hasP1) {
+        badge.className = 'px-3 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200';
+        badge.innerText = '🟠 存在 P1/P2 优化项';
+      } else {
+        badge.className = 'px-3 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
+        badge.innerText = '🟢 数据全线达标';
+      }
+    }
+
+    function createDiagCard(level, title, action, isGood = false) {
+      const borderClass = isGood ? 'border-emerald-200 bg-emerald-50/50' : (level.includes('P0') ? 'border-rose-200 bg-rose-50/50' : 'border-amber-200 bg-amber-50/50');
+      const textClass = isGood ? 'text-emerald-800' : (level.includes('P0') ? 'text-rose-800' : 'text-amber-800');
+      const badgeClass = isGood ? 'text-emerald-700 bg-emerald-100/70' : (level.includes('P0') ? 'text-rose-700 bg-rose-100/70' : 'text-amber-700 bg-amber-100/70');
+      return `
+        <div class="p-3 rounded-xl border ${borderClass} text-xs space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-bold ${textClass}">${title}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded font-mono font-semibold ${badgeClass}">${level.split(' ')[0]}</span>
+          </div>
+          <div class="text-slate-600 text-[11px] leading-relaxed">${action}</div>
+        </div>
+      `;
+    }
+
+    // 初始化
+    calcMetrics();
+  </script>
+</body>
+</html>

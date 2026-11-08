@@ -21,6 +21,7 @@ description: >-
       "question": "请从下方选择你要执行的 Creator Studio 作战动作：",
       "options": [
         "(Recommended) 🎯 选题雷达与85分团队打分 (scout_topics.py: 扫描GitHub/HN/HF情报并裁决)",
+        "🎙️ 对标扒取与Whisper打轴 (transcribe.py: yt-dlp+Whisper毫秒级转写+FFmpeg封装)",
         "🎬 一键流水线总装 (pipeline.py: 压制-14 LUFS + 封面截帧 + 飞书入库)",
         "📝 10分钟爆款脚本生成 (generate_script.py: 传入选题生成短句重音脚本与三平台文案)",
         "🎨 预渲染高清对比卡片 (render_cards.py: 批量输出 1080x1920 动效图)",
@@ -47,6 +48,12 @@ description: >-
 - 换算为百分制综合分，严守 **`>= 85 分` (composite >= 8.5)** 的 S 级准入门槛；
 - 自动生成 12 位稳定 hash id，持久化维护符合 `candidate-schema` 协议的 `candidates.md` 候选池；
 - 支持 `--recommend` 排序推荐高质量储备，支持 `--init` 一键联动 `generate_script.py` 初始化出片工程。
+
+### 1. 🎙️ 对标扒取与 Whisper 打轴 (yt-dlp + Whisper + FFmpeg)
+运行 `transcribe.py <URL 或 本地音视频> [-o 输出目录] [--model base] [--embed]`：
+- 传入网络链接（B站/抖音短链/YouTube）：`yt-dlp` 极速无损抓取，FFmpeg 转换 16kHz 高速音频缓存；
+- 传入本地录制视频：调用本地 OpenAI Whisper 毫秒级打轴转写，输出 `.srt` 字幕、`.txt` 全文文稿与黄金 Hook 提炼；
+- 支持 `--embed`：调用 FFmpeg 直接将 `.srt` 封装入成片软字幕轨。
 
 ### 1. 🎬 一键流水线总装
 运行 `pipeline.py <工程目录>`：

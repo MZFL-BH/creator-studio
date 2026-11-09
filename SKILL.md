@@ -21,6 +21,7 @@ description: >-
       "question": "请从下方选择你要执行的 Creator Studio 作战动作：",
       "options": [
         "(Recommended) 🎯 选题雷达与85分团队打分 (scout_topics.py: 扫描GitHub/HN/HF情报并裁决)",
+        "⚡️ 阿杜模式·60fps代码动效与真人小窗混剪 (adu_motion.py: 60fps动效/字级高亮/真人小窗交接)",
         "🎙️ 对标扒取与Whisper打轴 (transcribe.py: yt-dlp+Whisper毫秒级转写+FFmpeg封装)",
         "🎬 一键流水线总装 (pipeline.py: 压制-14 LUFS + 封面截帧 + 飞书入库)",
         "📝 10分钟爆款脚本生成 (generate_script.py: 传入选题生成短句重音脚本与三平台文案)",
@@ -55,7 +56,15 @@ description: >-
 - 传入本地录制视频：调用本地 OpenAI Whisper 毫秒级打轴转写，输出 `.srt` 字幕、`.txt` 全文文稿与黄金 Hook 提炼；
 - 支持 `--embed`：调用 FFmpeg 直接将 `.srt` 封装入成片软字幕轨。
 
-### 1. 🎬 一键流水线总装
+### 2. ⚡️ 阿杜模式·60fps代码动效与真人小窗混剪 (adu_motion.py)
+对标【阿王加二】/【阿杜 AI 动效】标准，彻底杜绝静态 PPT 卡片与 AI 塑料感：
+- **核心模式**：真人全屏开场撕营销 (A-roll 0~20s) ➡️ 动态缩入右下角圆角小窗 (B-roll 20~82s 切 60fps 动效与实测录屏) ➡️ 瞬间切回真人全屏特写点破潜规则 (82~105s) ➡️ 小窗展示 SOP 流程图 (105~128s) ➡️ 全屏指引开源资料包 (128~150s)。
+- **命令流水线**：
+  - `python3 scripts/adu_motion.py init <工程目录> --topic "选题名称"`：一键初始化全套 60fps HTML5/Canvas/CSS 动效场景、studio.html 可视化工作台与 SFX 资产；
+  - `python3 scripts/adu_motion.py align <工程目录>`：本地 Whisper GPU 提取毫秒级时间戳，自动生成电光黄关键词高亮 ASS 字幕；
+  - `python3 scripts/adu_motion.py assemble <工程目录> [--cam <真人视频.mp4>]`：混音 (-14 LUFS 响度标准化 + 8 处精准音效卡点 + -18dB 底乐) + 真人小窗交接混剪，秒级输出 1080x1920 高清成片。
+
+### 3. 🎬 一键流水线总装
 运行 `pipeline.py <工程目录>`：
 - 执行 `ffmpeg-skill` 响度标准化（`-14 LUFS` 对齐）；
 - 执行 `oil-cover` 自动截取 8 候选帧与封面排版方案；

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>Scene 3: 数据关 · 暗中篡改与造假</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1080px;
+      height: 1920px;
+      background: #f8f9fa;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Display", sans-serif;
+      overflow: hidden;
+      position: relative;
+      color: #1e293b;
+    }
+    .top-status {
+      position: absolute;
+      top: 120px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .step-tag {
+      font-size: 28px;
+      font-weight: 800;
+      color: #dc2626;
+      background: #fee2e2;
+      padding: 8px 24px;
+      border-radius: 999px;
+    }
+    .step-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .split-grid {
+      position: absolute;
+      top: 240px;
+      left: 70px;
+      width: 940px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .compare-card {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 36px 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+      border: 3px solid transparent;
+      display: flex;
+      flex-direction: column;
+      height: 720px;
+      justify-content: space-between;
+    }
+    .card-truth {
+      border-color: #3b82f6;
+    }
+    .card-ai {
+      border-color: #ef4444;
+      background: #fff5f5;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 16px;
+    }
+    .card-pill {
+      font-size: 22px;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: 8px;
+    }
+    .pill-blue { background: #dbeafe; color: #1d4ed8; }
+    .pill-red { background: #fee2e2; color: #b91c1c; }
+    .big-number {
+      font-size: 80px;
+      font-weight: 900;
+      font-family: "SF Pro Display", monospace;
+      margin: 20px 0;
+      line-height: 1;
+    }
+    .text-truth { color: #1d4ed8; }
+    .text-ai { color: #b91c1c; }
+    .data-text {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #334155;
+    }
+    .risk-box {
+      margin-top: 15px;
+      padding: 12px;
+      background: #fee2e2;
+      border-radius: 12px;
+      color: #b91c1c;
+      font-weight: 700;
+      position: relative;
+    }
+    .strike-line {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      height: 4px;
+      background: #dc2626;
+      width: 0;
+      transition: width 0.4s ease-out;
+    }
+    .fake-badge {
+      display: inline-block;
+      margin-top: 15px;
+      background: #dc2626;
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .fake-badge.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .critical-question {
+      position: absolute;
+      top: 1040px;
+      left: 70px;
+      width: 940px;
+      background: #ffffff;
+      border-radius: 32px;
+      border: 3px solid #fecaca;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.1);
+      text-align: center;
+      transition: all 0.4s;
+    }
+    .question-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: #991b1b;
+      margin-bottom: 12px;
+    }
+    .question-desc {
+      font-size: 28px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.4;
+    }
+    .bomb-card {
+      position: absolute;
+      bottom: 220px;
+      left: 70px;
+      width: 940px;
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 26px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 30px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-status">
+    <div class="step-tag">实测关卡 02</div>
+    <div class="step-title">数据关 · 暗中篡改与无耻造假</div>
+  </div>
+
+  <div class="split-grid">
+    <!-- Truth -->
+    <div class="compare-card card-truth">
+      <div>
+        <div class="card-header">
+          <div class="card-pill pill-blue">原始输入表格</div>
+          <span style="font-size: 22px; color: #64748b;">真实数据</span>
+        </div>
+        <div class="big-number text-truth">86.4%</div>
+        <div class="data-text">
+          项目阶段达成率：86.4%<br>
+          <div class="risk-box">
+            <span>⚠️ 存在技术人员短缺风险</span>
+            <div class="strike-line" id="strikeLine"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size: 20px; color: #94a3b8; font-weight: 600;">
+        数据源：生产排期真实统计
+      </div>
+    </div>
+
+    <!-- AI Generated -->
+    <div class="compare-card card-ai">
+      <div>
+        <div class="card-header">
+          <div class="card-pill pill-red">AI 生成 PPT</div>
+          <span style="font-size: 22px; color: #dc2626;">擅自篡改</span>
+        </div>
+        <div class="big-number text-ai" id="rollingNum">0%</div>
+        <div class="data-text">
+          项目高效推进，超额达成近 <b style="color: #dc2626;">90%</b>，全方位闭环赋能！<br>
+          <div style="margin-top: 15px; color: #64748b; font-size: 22px;">
+            脑补数据：友商份额已下滑 15%
+          </div>
+          <div class="fake-badge" id="fakeBadge">⚠️ 纯属虚构造假</div>
+        </div>
+      </div>
+      <div style="font-size: 20px; color: #dc2626; font-weight: 700;">
+        ⚠️ 抹平技术卡点，虚增数据
+      </div>
+    </div>
+  </div>
+
+  <div class="critical-question" id="critQuestion" style="opacity: 0; transform: translateY(20px);">
+    <div class="question-title">领导当场提问：“这 90% 数据哪来的？”</div>
+    <div class="question-desc">你敢当着部门全体的面，说是 AI 给你编的吗？</div>
+  </div>
+
+  <div class="bomb-card" id="bombCard" style="opacity: 0;">
+    <span>💣</span> 这不是提效，这是在工位上埋雷！
+  </div>
+
+  <script src="../components/subtitles.js"></script>
+  <script>
+    window.film = {
+      duration: 32.76,
+      frame(t) {
+        if (window.renderSubtitle) window.renderSubtitle('scene3', t);
+        const num = document.getElementById('rollingNum');
+        const strike = document.getElementById('strikeLine');
+        const fake = document.getElementById('fakeBadge');
+        const q = document.getElementById('critQuestion');
+        const bomb = document.getElementById('bombCard');
+
+        // Number rolling between 10s and 14s (when audio says 90%)
+        if (t < 9.5) {
+          num.innerText = "86.4%";
+        } else if (t >= 9.5 && t < 13.5) {
+          const p = (t - 9.5) / 4.0;
+          const val = Math.min(90, Math.round(86.4 + (90 - 86.4) * p));
+          num.innerText = val + "%";
+          strike.style.width = (p * 100) + "%";
+        } else {
+          num.innerText = "90%";
+          strike.style.width = "100%";
+        }
+
+        // Fake badge pop at 15s
+        if (t >= 14.5) fake.classList.add('show'); else fake.classList.remove('show');
+
+        // Question box at 20s
+        if (t >= 19.5) {
+          q.style.opacity = 1;
+          q.style.transform = 'translateY(0)';
+        } else {
+          q.style.opacity = 0;
+          q.style.transform = 'translateY(20px)';
+        }
+
+        // Bomb card at 26s
+        if (t >= 25.5) bomb.style.opacity = 1; else bomb.style.opacity = 0;
+      }
+    };
+  </script>
+</body>
+</html>

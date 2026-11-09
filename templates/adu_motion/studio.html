@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenFilm / TalkCraft 动效工作台 (Live Studio)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-viewport {
+      width: 360px;
+      height: 640px; /* 9:16 aspect ratio */
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.18), 0 0 0 12px #0f172a;
+      background: #ffffff;
+      position: relative;
+    }
+    .phone-frame {
+      width: 1080px;
+      height: 1920px;
+      border: none;
+      transform-origin: top left;
+      transform: scale(0.333333);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .subtitle-layer {
+      position: absolute;
+      bottom: 65px;
+      left: 15px;
+      right: 15px;
+      text-align: center;
+      pointer-events: none;
+      z-index: 50;
+    }
+    .sub-box {
+      display: inline-block;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .sub-box .hl {
+      color: #facc15;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+    }
+  </style>
+</head>
+<body class="flex flex-col h-screen">
+
+  <!-- Top Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between shrink-0 shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-black flex items-center justify-center text-sm">
+        OP
+      </div>
+      <div>
+        <h1 class="text-sm font-bold text-slate-800">Ethan Motion Studio · 60fps 可视化工作台</h1>
+        <p class="text-xs text-slate-500">对标阿王加二 · 毫秒级字戳对齐 + 60fps 动效引擎</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 text-xs">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 引擎就绪 · Whisper 已对齐
+      </span>
+      <span class="text-slate-400">|</span>
+      <span class="font-mono text-slate-600 font-bold" id="totalDurationText">02:30.60</span>
+    </div>
+  </header>
+
+  <!-- Main Workspace (Center Phone Preview) -->
+  <main class="flex-1 flex items-center justify-center p-4 relative overflow-hidden bg-slate-100">
+    <div class="phone-viewport relative">
+      <iframe id="sceneIframe" class="phone-frame" src="scenes/scene1_hook.html"></iframe>
+      
+      <!-- Real-time Subtitle Overlay -->
+      <div class="subtitle-layer">
+        <div class="sub-box" id="subText">
+          点击下方播放按钮预览成片
+        </div>
+      </div>
+
+      <!-- Adu-style Real-Person Talking Head Window (PiP) -->
+      <div id="aduPipWindow" class="absolute bottom-[140px] right-[18px] w-[96px] h-[128px] rounded-2xl overflow-hidden border-2 border-white shadow-2xl z-40 bg-slate-900 transition-all duration-500 transform hover:scale-105">
+        <div class="relative w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-950 text-white">
+          <div class="w-10 h-10 rounded-full bg-blue-600 border border-white/30 flex items-center justify-center font-black text-sm shadow">
+            E
+          </div>
+          <span class="text-[10px] font-bold text-slate-300 mt-1.5 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Ethan 出镜
+          </span>
+          <div class="absolute top-1.5 right-1.5 px-1 py-0.5 rounded bg-black/50 text-[8px] font-mono text-slate-400">
+            A-roll
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Audio Element -->
+  <audio id="voiceAudio" src="../audio/full_voice.mp3" preload="auto"></audio>
+
+  <!-- Bottom Timeline & Transport Controls -->
+  <footer class="bg-white border-t border-slate-200 p-4 shrink-0 shadow-lg flex flex-col gap-3">
+    <!-- Scene Markers Bar -->
+    <div class="relative w-full h-8 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 flex text-[11px] font-bold select-none cursor-pointer" id="sceneBar">
+      <div style="width: 13.3%;" class="h-full bg-blue-100 border-r border-blue-300 flex items-center justify-center text-blue-800 truncate px-1" title="01 开场撕营销 (20s)">01 开场撕营销</div>
+      <div style="width: 19.5%;" class="h-full bg-amber-100 border-r border-amber-300 flex items-center justify-center text-amber-800 truncate px-1" title="02 格式关 (29s)">02 格式关翻车</div>
+      <div style="width: 21.8%;" class="h-full bg-red-100 border-r border-red-300 flex items-center justify-center text-red-800 truncate px-1" title="03 数据关 (32s)">03 偷改数据</div>
+      <div style="width: 15.4%;" class="h-full bg-purple-100 border-r border-purple-300 flex items-center justify-center text-purple-800 truncate px-1" title="04 工位真相 (23s)">04 工位真相</div>
+      <div style="width: 15.5%;" class="h-full bg-emerald-100 border-r border-emerald-300 flex items-center justify-center text-emerald-800 truncate px-1" title="05 保命SOP (23s)">05 保命SOP</div>
+      <div style="width: 14.5%;" class="h-full bg-indigo-100 flex items-center justify-center text-indigo-800 truncate px-1" title="06 资料交付 (21s)">06 资料交付</div>
+      
+      <!-- Scrubber Playhead -->
+      <div id="playhead" class="absolute top-0 bottom-0 w-1 bg-red-500 shadow-md transition-all pointer-events-none" style="left: 0%;"></div>
+    </div>
+
+    <!-- Timeline Progress Scrubber -->
+    <div class="flex items-center gap-3">
+      <span class="text-xs font-mono font-bold text-slate-700 w-16" id="timecode">00:00.0</span>
+      <input type="range" id="timelineSlider" min="0" max="150.6" step="0.05" value="0" class="flex-1 h-2 bg-slate-200 rounded-lg cursor-pointer accent-blue-600">
+      <span class="text-xs font-mono text-slate-500 w-16 text-right">02:30.6</span>
+    </div>
+
+    <!-- Controls Row -->
+    <div class="flex items-center justify-between pt-1">
+      <div class="flex items-center gap-2">
+        <button id="btnPlay" class="px-5 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 shadow transition flex items-center gap-2">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span id="btnPlayText">播放视频</span>
+        </button>
+        <button id="btnReset" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200 transition">
+          重头开始
+        </button>
+      </div>
+
+      <!-- Quick Scene Jump Buttons -->
+      <div class="flex items-center gap-1.5">
+        <span class="text-xs text-slate-400 mr-1">镜头速切:</span>
+        <button onclick="jumpTo(0)" class="px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">01</button>
+        <button onclick="jumpTo(20.04)" class="px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">02</button>
+        <button onclick="jumpTo(49.46)" class="px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">03</button>
+        <button onclick="jumpTo(82.22)" class="px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">04</button>
+        <button onclick="jumpTo(105.38)" class="px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">05</button>
+        <button onclick="jumpTo(128.76)" class="px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">06</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const SCENES = [
+      { id: "scene1", name: "scene1_hook.html", start: 0, end: 20.04 },
+      { id: "scene2", name: "scene2_template_fail.html", start: 20.04, end: 49.46 },
+      { id: "scene3", name: "scene3_data_tamper.html", start: 49.46, end: 82.22 },
+      { id: "scene4", name: "scene4_reality_check.html", start: 82.22, end: 105.38 },
+      { id: "scene5", name: "scene5_real_solution.html", start: 105.38, end: 128.76 },
+      { id: "scene6", name: "scene6_resources.html", start: 128.76, end: 150.60 }
+    ];
+
+    const audio = document.getElementById('voiceAudio');
+    const iframe = document.getElementById('sceneIframe');
+    const slider = document.getElementById('timelineSlider');
+    const playhead = document.getElementById('playhead');
+    const timecode = document.getElementById('timecode');
+    const subText = document.getElementById('subText');
+    const btnPlay = document.getElementById('btnPlay');
+    const btnPlayText = document.getElementById('btnPlayText');
+    const btnReset = document.getElementById('btnReset');
+
+    let currentSceneIdx = -1;
+    let subtitleData = [];
+
+    // Load Whisper JSON subtitles
+    fetch('../audio/full_voice.json')
+      .then(r => r.json())
+      .then(data => {
+        subtitleData = data.segments || [];
+      })
+      .catch(e => console.log('Loaded without json:', e));
+
+    function formatTime(s) {
+      const mins = Math.floor(s / 60);
+      const secs = (s % 60).toFixed(1);
+      return `${mins.toString().padStart(2, '0')}:${secs.padStart(4, '0')}`;
+    }
+
+    function syncToTime(t) {
+      // Find scene
+      let sIdx = SCENES.findIndex(sc => t >= sc.start && t < sc.end);
+      if (sIdx === -1 && t >= 150.60) sIdx = SCENES.length - 1;
+
+      if (sIdx !== currentSceneIdx && sIdx !== -1) {
+        currentSceneIdx = sIdx;
+        iframe.src = `scenes/${SCENES[sIdx].name}`;
+      }
+
+      // Sync scene animation frame
+      if (iframe.contentWindow && iframe.contentWindow.film && iframe.contentWindow.film.frame) {
+        const localT = t - SCENES[currentSceneIdx].start;
+        iframe.contentWindow.film.frame(localT);
+      }
+
+      // Sync Adu-style Real-Person Window Transitions
+      const pip = document.getElementById('aduPipWindow');
+      if (pip) {
+        if (sIdx === 0 || sIdx === 3) {
+          // Fullscreen A-roll focus
+          pip.style.width = "100%";
+          pip.style.height = "100%";
+          pip.style.bottom = "0";
+          pip.style.right = "0";
+          pip.style.borderRadius = "0";
+          pip.style.opacity = "0.95";
+        } else {
+          // Small Floating Window (B-roll takes main stage)
+          pip.style.width = "96px";
+          pip.style.height = "128px";
+          pip.style.bottom = "140px";
+          pip.style.right = "18px";
+          pip.style.borderRadius = "16px";
+          pip.style.opacity = "1";
+        }
+      }
+
+      // Sync Subtitles
+      if (subtitleData.length > 0) {
+        const seg = subtitleData.find(sg => t >= sg.start && t <= sg.end);
+        if (seg) {
+          // Highlight active keywords
+          let txt = seg.text;
+          txt = txt.replace(/(全删了|造假|母版|闭环|架构师|PPT)/g, '<span class="hl">$1</span>');
+          subText.innerHTML = txt;
+        }
+      }
+
+      // Update UI
+      slider.value = t;
+      playhead.style.left = (t / 150.60 * 100) + "%";
+      timecode.innerText = formatTime(t);
+    }
+
+    function jumpTo(sec) {
+      audio.currentTime = sec;
+      syncToTime(sec);
+    }
+
+    btnPlay.onclick = () => {
+      if (audio.paused) {
+        audio.play();
+        btnPlayText.innerText = "暂停视频";
+      } else {
+        audio.pause();
+        btnPlayText.innerText = "播放视频";
+      }
+    };
+
+    btnReset.onclick = () => {
+      jumpTo(0);
+      audio.pause();
+      btnPlayText.innerText = "播放视频";
+    };
+
+    slider.oninput = (e) => {
+      const val = parseFloat(e.target.value);
+      audio.currentTime = val;
+      syncToTime(val);
+    };
+
+    // Animation Loop
+    function renderLoop() {
+      if (!audio.paused) {
+        syncToTime(audio.currentTime);
+      }
+      requestAnimationFrame(renderLoop);
+    }
+    requestAnimationFrame(renderLoop);
+
+    // Initial sync
+    window.onload = () => {
+      syncToTime(0);
+    };
+  </script>
+</body>
+</html>
